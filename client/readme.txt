@@ -1,0 +1,3 @@
+- audio files go into sound dir and must be listed in sound.cfg file as "button name,filename.ext"
+- this project has developed for a variant of the game having the "if a box is given in a round a and this player can't play again this is removed by the list after reset for next round", the winned boxes by the player are stored inside the "partite.txt" file, if you don't want this behaviour, just delete this file after the end of each round or modify "azzera.py" so that the reset is only a full reset.
+- splashON.py is used to show a full screen message and the lock is inteded to be removed after azzera.py execution
