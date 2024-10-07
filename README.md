@@ -3,6 +3,9 @@ Fullscreen webpage &amp; py GUI controller for a game: this dynamic table has be
 
 ![Preview](https://github.com/lithium333/AffariMiei/blob/main/preview.png?raw=true)
 
+# The controller
+![Preview 2](https://github.com/lithium333/AffariMiei/blob/main/preview2.png?raw=true)
+
 # usage
 - more technical details can be found in the readme.txt file in the srv folder for the server side
 - for security reasons is better that the webserver is limited to a local network where only the PC running the GUI can access
