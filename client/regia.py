@@ -6,7 +6,7 @@ from tkinter import ttk
 from tkinter import messagebox
 import requests
 import urllib.parse
-import playsound
+import playsound3
 
 ip_addr="127.0.0.1"
 
@@ -47,7 +47,7 @@ def faiofferta():
 
 def playaudio(s):
 	window.destroy()
-	playsound.playsound(s,False)
+	playsound3.playsound(s,False)
 	
 def modereg():
 	requests.get("http://"+ip_addr+"/modereg.php")
