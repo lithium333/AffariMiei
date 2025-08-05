@@ -18,4 +18,24 @@ html { height: 100%; }
 #box { background-color: #ffff00; width: 100%; min-height: 100%; margin: auto; }
 #title { color: #000000; text-align: center; font-size: 5vw; font-family:fontpacchi; display: flex; justify-content: center; align-items: center; height: 100vh; }
 </style>
+
+<script>
+
+function myFunction() {
+   var xmlHttp = new XMLHttpRequest();
+   xmlHttp.open("GET", "./splashquery.php", true);
+   xmlHttp.onload = function () {
+       var resp = xmlHttp.responseText;
+       if(resp!="yes") {
+           //console.log(resp); //DEBUG ONLY
+           window.location.href = "view.php";
+       }
+   };
+   xmlHttp.send();
+}
+
+setInterval(myFunction, 1000);
+    
+</script>
+
 </html>
