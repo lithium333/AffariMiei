@@ -2,6 +2,7 @@
 
 import json
 import tkinter as tk
+#from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 import requests
@@ -24,19 +25,23 @@ def apripacco(col,row):
 	print("issuing: http://"+ip_addr+"/write.php?col="+str(col)+"&row="+str(row))
 	requests.get("http://"+ip_addr+"/write.php?col="+str(col)+"&row="+str(row))
 	window.destroy()
+	drwFrame()
 
 def toglireg(col,row):
 	print("issuing: http://"+ip_addr+"/remreg.php?col="+str(col)+"&row="+str(row))
 	requests.get("http://"+ip_addr+"/remreg.php?col="+str(col)+"&row="+str(row))
 	window.destroy()
+	drwFrame()
 
 def delofferta():
 	requests.get("http://"+ip_addr+"/remove.php")
 	window.destroy()
+	drwFrame()
 	
 def accofferta():
 	requests.get("http://"+ip_addr+"/accetta.php")
 	window.destroy()
+	drwFrame()
 	
 def faiofferta():
 	item = ent_offer.get()
@@ -44,14 +49,15 @@ def faiofferta():
 	if(len(item)>0):
 		requests.get("http://"+ip_addr+"/propose.php?val="+itemu)
 	window.destroy()
+	drwFrame()
 
 def playaudio(s):
-	window.destroy()
 	playsound3.playsound(s,False)
 	
 def modereg():
 	requests.get("http://"+ip_addr+"/modereg.php")
 	window.destroy()
+	drwFrame()
 def modepac():
 	try:
 		fobj = open("partite.txt")
@@ -66,19 +72,15 @@ def modepac():
 		row = int(rigav[1])
 		requests.get("http://"+ip_addr+"/write.php?col="+str(col)+"&row="+str(row))
 	window.destroy()
+	drwFrame()
 
-while(True):
-	# MAIN LOOP
-	window = tk.Tk()
-	window.call('wm', 'attributes', '.', '-topmost', '1')
-	window.title("Affari Miei MGR")
-	window.geometry('1000x900') 
-	window.protocol('WM_DELETE_WINDOW', lambda: exit())
+def drwFrame():
+	global window
+	window = tk.Frame(windowParent,height = 900, width = 1000)
 	
 	# JSON LOAD
 	jrqst = requests.get("http://"+ip_addr+"/data/pacchi.json")
 	jdata = json.loads(jrqst.text)
-	
 	if(not jdata[7]):
 		lb = tk.Label(window, bg='white', width=20, text='PACCHI BLU:')
 		lb.place(x=100,y=40)
@@ -160,6 +162,7 @@ while(True):
 		else:
 			butt_del = tk.Button(master=window, bg='yellow', text="FAI OFFERTA", command=lambda: faiofferta())
 			butt_del.place(x=100,y=750)
+			global ent_offer
 			ent_offer = tk.Entry(window, width=20)
 			ent_offer.place(x=400,y=750)
 	
@@ -197,8 +200,32 @@ while(True):
 		fobj.write(str(last_valido[0])+","+str(last_valido[1])+"\n")
 		fobj.close()
 		exit()
+	window.pack()
+	window.pack_propagate(0)
 	
-	window.mainloop()
+	
+	
+windowParent = tk.Tk()
+windowParent.call('wm', 'attributes', '.', '-topmost', '1')
+windowParent.title("Affari Miei MGR")
+windowParent.geometry('1000x900') 
+windowParent.protocol('WM_DELETE_WINDOW', lambda: exit())
+
+while(True):
+	# MAIN LOOP
+	
+	#window = tk.Tk()
+	#window.call('wm', 'attributes', '.', '-topmost', '1')
+	#window.title("Affari Miei MGR")
+	#window.geometry('1000x900') 
+	#window.protocol('WM_DELETE_WINDOW', lambda: exit())
+	
+	
+	
+	drwFrame()
+	
+		
+	windowParent.mainloop()
 
 		
 
