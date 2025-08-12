@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>affari miei : reset-mgr</title>
+<title>AffariMiei : enable-splash</title>
 </head>
 <body>
 <?php
@@ -8,7 +8,7 @@
 $jfile = file_get_contents("./data/pacchi.json");
 $jdata = json_decode($jfile,true);
 
-$jdata[2]=time();
+$jdata[2]=(new DateTime())->format('Uv');
 $jdata[8]=True;
 
 $jfile = json_encode($jdata);

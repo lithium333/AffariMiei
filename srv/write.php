@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>affari miei : write-rqst</title>
+<title>AffariMiei : write-rqst</title>
 </head>
 <body>
 <?php
@@ -15,7 +15,7 @@ $jdata = json_decode($jfile,true);
 
 if($valc>=0 && $valr>=0 && $valc<2 && $valr<15) {
 	$jdata[$valc][$valr]["show"]=false;
-	$jdata[2]=time();
+	$jdata[2]=(new DateTime())->format('Uv');
 	$jfile = json_encode($jdata);
 	file_put_contents("./data/pacchi.json",$jfile);
 	print("debug: json updated<br>");
