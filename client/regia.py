@@ -93,7 +93,7 @@ def splashOFF():
 
 def drwFrame():
 	global window
-	window = tk.Frame(windowParent,bg="#B0E0FF",height = 700, width = 1000)
+	window = tk.Frame(windowParent,bg="#B0E0FF",height = hparam, width = 1000)
 	
 	# JSON LOAD
 	jrqst = requests.get("http://"+ip_addr+"/data/pacchi.json")
@@ -118,7 +118,8 @@ def drwFrame():
 	last_valido=[0,0]
 
 	if(jdata[7]):
-		for cnt in range(0,10):
+		# REGIONI SINISTRA
+		for cnt in range(0,jdata[11]):
 			exec("arr_cbox_b.append(tk.Button(master=window, bg='yellow', fg='black', font='12',text=jdata[5][cnt][\"desc\"], command=lambda: toglireg(0,"+str(cnt)+")))")
 			arr_cbox_b[cnt].place(x=100,y=100+cnt*40)
 			if(not jdata[5][cnt]["show"]):
@@ -128,8 +129,8 @@ def drwFrame():
 				totpacchi+=1
 				last_valido[0]=0
 				last_valido[1]=cnt
-			#print(str(cnt)+" : "+jdata[0][cnt]["desc"])
-		for cnt in range(0,10):
+		# REGIONI DESTRA
+		for cnt in range(0,jdata[11]):
 			exec("arr_cbox_r.append(tk.Button(master=window, bg='yellow', fg='black', font='12',text=jdata[6][cnt][\"desc\"], command=lambda: toglireg(1,"+str(cnt)+")))")
 			arr_cbox_r[cnt].place(x=400,y=100+cnt*40)
 			if(not jdata[6][cnt]["show"]):
@@ -139,10 +140,9 @@ def drwFrame():
 				totpacchi+=1
 				last_valido[0]=1
 				last_valido[1]=cnt
-			#print(str(cnt)+" : "+jdata[1][cnt]["desc"])
 	else:
-		#print("\nBLU:")
-		for cnt in range(0,10):
+		# PACCHI BLU
+		for cnt in range(0,jdata[10]):
 			exec("arr_cbox_b.append(tk.Button(master=window, bg='blue', fg='white', font='12',text=jdata[0][cnt][\"desc\"], command=lambda: apripacco(0,"+str(cnt)+")))")
 			arr_cbox_b[cnt].place(x=100,y=100+cnt*40)
 			if(not jdata[0][cnt]["show"]):
@@ -152,9 +152,8 @@ def drwFrame():
 				totpacchi+=1
 				last_valido[0]=0
 				last_valido[1]=cnt
-			#print(str(cnt)+" : "+jdata[0][cnt]["desc"])
-		#print("\nROSSI:")
-		for cnt in range(0,10):
+		# PACCI ROSSI
+		for cnt in range(0,jdata[10]):
 			exec("arr_cbox_r.append(tk.Button(master=window, bg='red', fg='white', font='12',text=jdata[1][cnt][\"desc\"], command=lambda: apripacco(1,"+str(cnt)+")))")
 			arr_cbox_r[cnt].place(x=400,y=100+cnt*40)
 			if(not jdata[1][cnt]["show"]):
@@ -164,25 +163,34 @@ def drwFrame():
 				totpacchi+=1
 				last_valido[0]=1
 				last_valido[1]=cnt
-			#print(str(cnt)+" : "+jdata[1][cnt]["desc"])
-		#print("\nPACCHI: "+str(totpacchi))
 		# OFFERTA
+		hposOffer=maxextrarows*40+550;
 		if(jdata[3]!=None):
 			butt_del = tk.Button(master=window, bg='orange', font='12',text="RIMUOVI OFFERTA", command=lambda: delofferta())
-			butt_del.place(x=100,y=550)
+			butt_del.place(x=100,y=hposOffer)
 			if(not jdata[4]):
 				butt_acc = tk.Button(master=window, bg='lime', font='12',text="ACCETTA OFFERTA", command=lambda: accofferta())
-				butt_acc.place(x=400,y=550)
+				butt_acc.place(x=400,y=hposOffer)
 			desc_offer = tk.Button(master=window, bg='yellow', font='12',text="OFFERTA: "+jdata[3], state='disabled')
 			if(jdata[4]):
 				desc_offer.config(bg="lime")
-			desc_offer.place(x=700,y=550)
+			desc_offer.place(x=700,y=hposOffer)
 		else:
 			butt_del = tk.Button(master=window, bg='yellow', font='12',text="FAI OFFERTA", command=lambda: faiofferta())
-			butt_del.place(x=100,y=550)
+			butt_del.place(x=100,y=hposOffer)
 			global ent_offer
 			ent_offer = tk.Entry(window, width=20, font='12')
-			ent_offer.place(x=400,y=550)
+			ent_offer.place(x=400,y=hposOffer)
+			
+		# SEPARATORI
+		hposSep0=maxextrarows*40+525;
+		sep0 = ttk.Separator(window, orient='horizontal')
+		#sep0.pack(side="bottom",fill="x", padx=5, pady=85)
+		sep0.place(x=0, y=hposSep0, relwidth=1, height=1)
+		hposSep1=maxextrarows*40+610;
+		sep1 = ttk.Separator(window, orient='horizontal')
+		#sep1.pack(side="bottom",fill="x", padx=5, pady=0)
+		sep1.place(x=0, y=hposSep1, relwidth=1, height=1)
 	
 	# LOAD BOTTONI SUONI
 	acfg_file = open(relpath+"/sound.cfg")
@@ -196,27 +204,22 @@ def drwFrame():
 		abutv[abutn].place(x=700,y=100+abutn*40)
 		abutn+=1
 	
-	# SEPARATORI
-	sep0 = ttk.Separator(window)
-	sep0.pack(side="bottom",fill="x", padx=5, pady=85)
-	sep1 = ttk.Separator(window)
-	sep1.pack(side="bottom",fill="x", padx=5, pady=0)
-	
 	# CONTRADA FORTUNATA
+	hposContrada=maxextrarows*40+630;
 	if(jdata[7]):
 		butt_contrada = tk.Button(master=window, bg='#CF5F00', fg='white', font='12',text="AZZERA (MOD. PACCHI)", command=lambda: azzera())
-		butt_contrada.place(x=100,y=640)
+		butt_contrada.place(x=100,y=hposContrada)
 		if(jdata[8]):
 			butt_contrada2 = tk.Button(master=window, bg='black', fg='white', font='12',text="SPLASH OFF REGIONE", command=lambda: splashOFF())
-			butt_contrada2.place(x=400,y=640)
+			butt_contrada2.place(x=400,y=hposContrada)
 		else:
 			butt_contrada2 = tk.Button(master=window, bg='black', fg='white', font='12',text="SPLASH ON REGIONE", command=lambda: splashON())
-			butt_contrada2.place(x=400,y=640)
+			butt_contrada2.place(x=400,y=hposContrada)
 	else:
 		butt_contrada = tk.Button(master=window, bg='#CF5F00', fg='white', font='12',text="AZZERA", command=lambda: azzera())
-		butt_contrada.place(x=100,y=640)
+		butt_contrada.place(x=100,y=hposContrada)
 		butt_contrada2 = tk.Button(master=window, bg='black', fg='white', font='12',text="CONTRADA FORTUNATA", command=lambda: modereg())
-		butt_contrada2.place(x=400,y=640)
+		butt_contrada2.place(x=400,y=hposContrada)
 		
 	# EXIT: partita finita (DISABLED)
 	#if(totpacchi<2):
@@ -230,26 +233,21 @@ def drwFrame():
 	window.pack_propagate(0)
 	
 	
-	
+# INITIAL SETTINGS
+jinitrqst = requests.get("http://"+ip_addr+"/data/pacchi.json")
+jinitdata = json.loads(jinitrqst.text)
+global maxextrarows
+maxextrarows = max(jinitdata[10],jinitdata[11])-10
+global hparam
+hparam=str(700+40*maxextrarows)
 windowParent = tk.Tk()
 windowParent.call('wm', 'attributes', '.', '-topmost', '1')
 windowParent.title("Affari Miei MGR")
-windowParent.geometry('1000x700')
+windowParent.geometry('1000x'+hparam)
 windowParent.resizable(False, False) 
 windowParent.protocol('WM_DELETE_WINDOW', lambda: exit())
 
+# MAIN LOOP
 while(True):
-	# MAIN LOOP
-	
-	#window = tk.Tk()
-	#window.call('wm', 'attributes', '.', '-topmost', '1')
-	#window.title("Affari Miei MGR")
-	#window.geometry('1000x900') 
-	#window.protocol('WM_DELETE_WINDOW', lambda: exit())
-	
-	
-	
-	drwFrame()
-	
-		
+	drwFrame()	
 	windowParent.mainloop()
