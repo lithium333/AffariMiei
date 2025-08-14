@@ -13,7 +13,7 @@ $valr = intval($_GET["row"]);
 $jfile = file_get_contents("./data/pacchi.json");
 $jdata = json_decode($jfile,true);
 
-if($valc>=0 && $valr>=0 && $valc<2 && $valr<15) {
+if($valc>=0 && $valr>=0 && $valc<2 && $valr<$jdata[10]) {
 	$jdata[$valc][$valr]["show"]=false;
 	$jdata[2]=(new DateTime())->format('Uv');
 	$jfile = json_encode($jdata);
