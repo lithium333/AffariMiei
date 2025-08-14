@@ -12,9 +12,17 @@
 // READ DATA & SETTINGS
 $jfile = file_get_contents("./data/pacchi.json");
 $jdata = json_decode($jfile,true);
+// SPLASH REDIRECT
 if($jdata[8]) {
 	header("Location: splash.php");
 	die();
+}
+// SPLASH SOLUTION
+if(($jdata[9][0]!=-1) and ($jdata[9][1]!=-1)) {
+	$solution=True;
+	$soltxt=$jdata[$jdata[9][0]][$jdata[9][1]]["desc"];
+} else {
+	$solution=False;
 }
 ?>
 
@@ -76,22 +84,25 @@ foreach ($jdata[1+$loff] as $jval) {
 </div>
 
 <?php
-// BANNER OFFERTA
+// BANNER OFFERTA o SOLUZIONE
 echo "<div style=\"justify-content:center;position:absolute;width:50%;bottom:5%;left:50%;align-items:center;\">\n";
-if(!$jdata[7]) {
-	
-	if($jdata[3]!=null) {
-		if($jdata[4])
-			echo "<div class='tabyel' style='font-family:fontpacchi;color:#00af00;'>".$jdata[3]."</div>";
-		else
-			echo "<div class='tabyel' style='font-family:fontpacchi;'>".$jdata[3]."</div>";
+if($solution) {
+	if($jdata[9][0]==1) // rosso
+		echo "<div class='tabyel' style='font-family:fontpacchi;background-color: #cf0000;color:white;'>".$soltxt."</div>";
+	else // blu
+		echo "<div class='tabyel' style='font-family:fontpacchi;background-color: #0000cf;color:white;'>".$soltxt."</div>";
+} else {
+	if(!$jdata[7]) {
+		if($jdata[3]!=null) {
+			if($jdata[4])
+				echo "<div class='tabyel' style='font-family:fontpacchi;color:#00af00;'>".$jdata[3]."</div>";
+			else
+				echo "<div class='tabyel' style='font-family:fontpacchi;'>".$jdata[3]."</div>";
+		}
 	}
 }
 echo "</div>\n";
 ?>
-
-
-
 
 </body>
 

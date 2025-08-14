@@ -20,6 +20,7 @@ $jdata[3]=null;
 $jdata[4]=False;
 $jdata[7]=False;
 $jdata[8]=False;
+$jdata[9]=[-1,-1];
 
 $jfile = json_encode($jdata);
 file_put_contents("./data/pacchi.json",$jfile);
