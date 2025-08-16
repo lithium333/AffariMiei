@@ -24,23 +24,25 @@ if(($jdata[9][0]!=-1) and ($jdata[9][1]!=-1)) {
 } else {
 	$solution=False;
 }
+// SELETTORE COLONNE PACCHI/REGIONI
+if($jdata[7]) { // mod regioni
+	$loff=5;
+	$pacpercol=$jdata[11];
+	$color_txt=$jdata[14];
+} else { // mod pacchi
+	$loff=0;
+	$pacpercol=$jdata[10];
+	$color_txt=$jdata[13];
+}
 ?>
 
-<div style='display:flex;justify-content:center;margin:0;margin-top:2%;padding:0;align-items:center;font-size:1.5vw;'>
-	<b>Affari Tuoi</b> <img src="\data\logo_inline.png" height="8%" width="8%"> <i>2<sup>a</sup> edizione</i>
+<div style='display:flex;justify-content:center;text-align:center;margin:0;margin-top:2%;height:7%;padding:0;align-items:center;font-size:1.5vw;vertical-align: middle;color:<?php echo $color_txt;?>;'>
+	<b><?php echo $jdata[12]; ?></i>
 </div>
 
 <div style="display:flex;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;height:89%">
 
 <?php
-// SELETTORE COLONNE PACCHI/REGIONI
-if($jdata[7]) {
-	$loff=5;
-	$pacpercol=$jdata[11];
-} else {
-	$loff=0;
-	$pacpercol=$jdata[10];
-}
 // PADDING, MARGIN and FONTSIZE
 if($pacpercol<10) { // minimal size requirement
 	$str_pad=2;

@@ -1,4 +1,3 @@
-logotv must have 256x128 size
 contrade.png & sfondopacchi.png must have 1280x720 or higher (also check best ratio for your screen or projector)
 
 data/pacchi.json:
@@ -13,3 +12,6 @@ data/pacchi.json:
 [9] : [col,row] SOLUTION, [-1,-1] IF NOT SET
 [10] : NUMBER OF ROWS PER COL. FOR BOXES
 [11] : NUMBER OF ROWS FOR COL. FOR REGIONS
+[12] : TITLE (IN HTML FORMAT: IMG SRC SUPPORTED)
+[13] : TITLE COLOR : BOXES MODE
+[14] : TITLE COLOR : REGIONS MODE
