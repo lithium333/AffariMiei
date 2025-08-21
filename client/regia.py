@@ -120,8 +120,8 @@ def drwFrame():
 	if(jdata[7]):
 		# REGIONI SINISTRA
 		for cnt in range(0,jdata[11]):
-			exec("arr_cbox_b.append(tk.Button(master=window, bg='yellow', fg='black', font='12',text=jdata[5][cnt][\"desc\"], command=lambda: toglireg(0,"+str(cnt)+")))")
-			arr_cbox_b[cnt].place(x=100,y=100+cnt*40)
+			exec("arr_cbox_b.append(tk.Button(master=window, bg='yellow', fg='black', font='12', height=1,text=jdata[5][cnt][\"desc\"], command=lambda: toglireg(0,"+str(cnt)+")))")
+			arr_cbox_b[cnt].place(x=100,y=100+cnt*30,h=30)
 			if(not jdata[5][cnt]["show"]):
 				arr_cbox_b[cnt].config(state="disabled")
 				arr_cbox_b[cnt].config(bg="white")
@@ -131,8 +131,8 @@ def drwFrame():
 				last_valido[1]=cnt
 		# REGIONI DESTRA
 		for cnt in range(0,jdata[11]):
-			exec("arr_cbox_r.append(tk.Button(master=window, bg='yellow', fg='black', font='12',text=jdata[6][cnt][\"desc\"], command=lambda: toglireg(1,"+str(cnt)+")))")
-			arr_cbox_r[cnt].place(x=400,y=100+cnt*40)
+			exec("arr_cbox_r.append(tk.Button(master=window, bg='yellow', fg='black', font='12', height=1,text=jdata[6][cnt][\"desc\"], command=lambda: toglireg(1,"+str(cnt)+")))")
+			arr_cbox_r[cnt].place(x=400,y=100+cnt*30,h=30)
 			if(not jdata[6][cnt]["show"]):
 				arr_cbox_r[cnt].config(state="disabled")
 				arr_cbox_r[cnt].config(bg="white")
@@ -143,8 +143,8 @@ def drwFrame():
 	else:
 		# PACCHI BLU
 		for cnt in range(0,jdata[10]):
-			exec("arr_cbox_b.append(tk.Button(master=window, bg='blue', fg='white', font='12',text=jdata[0][cnt][\"desc\"], command=lambda: apripacco(0,"+str(cnt)+")))")
-			arr_cbox_b[cnt].place(x=100,y=100+cnt*40)
+			exec("arr_cbox_b.append(tk.Button(master=window, bg='blue', fg='white', font='10', text=jdata[0][cnt][\"desc\"], command=lambda: apripacco(0,"+str(cnt)+")))")
+			arr_cbox_b[cnt].place(x=100,y=100+cnt*30,h=30)
 			if(not jdata[0][cnt]["show"]):
 				arr_cbox_b[cnt].config(state="disabled")
 				arr_cbox_b[cnt].config(bg="white")
@@ -154,8 +154,8 @@ def drwFrame():
 				last_valido[1]=cnt
 		# PACCI ROSSI
 		for cnt in range(0,jdata[10]):
-			exec("arr_cbox_r.append(tk.Button(master=window, bg='red', fg='white', font='12',text=jdata[1][cnt][\"desc\"], command=lambda: apripacco(1,"+str(cnt)+")))")
-			arr_cbox_r[cnt].place(x=400,y=100+cnt*40)
+			exec("arr_cbox_r.append(tk.Button(master=window, bg='red', fg='white', font='10', text=jdata[1][cnt][\"desc\"], command=lambda: apripacco(1,"+str(cnt)+")))")
+			arr_cbox_r[cnt].place(x=400,y=100+cnt*30,h=30)
 			if(not jdata[1][cnt]["show"]):
 				arr_cbox_r[cnt].config(state="disabled")
 				arr_cbox_r[cnt].config(bg="white")
@@ -164,30 +164,30 @@ def drwFrame():
 				last_valido[0]=1
 				last_valido[1]=cnt
 		# OFFERTA
-		hposOffer=maxextrarows*40+550;
+		hposOffer=maxextrarows*30+415;
 		if(jdata[3]!=None):
 			butt_del = tk.Button(master=window, bg='orange', font='12',text="RIMUOVI OFFERTA", command=lambda: delofferta())
-			butt_del.place(x=100,y=hposOffer)
+			butt_del.place(x=100,y=hposOffer,h=30)
 			if(not jdata[4]):
 				butt_acc = tk.Button(master=window, bg='lime', font='12',text="ACCETTA OFFERTA", command=lambda: accofferta())
-				butt_acc.place(x=400,y=hposOffer)
+				butt_acc.place(x=400,y=hposOffer,h=30)
 			desc_offer = tk.Button(master=window, bg='yellow', font='12',text="OFFERTA: "+jdata[3], state='disabled')
 			if(jdata[4]):
 				desc_offer.config(bg="lime")
-			desc_offer.place(x=700,y=hposOffer)
+			desc_offer.place(x=700,y=hposOffer,h=30)
 		else:
 			butt_del = tk.Button(master=window, bg='yellow', font='12',text="FAI OFFERTA", command=lambda: faiofferta())
-			butt_del.place(x=100,y=hposOffer)
+			butt_del.place(x=100,y=hposOffer,h=30)
 			global ent_offer
 			ent_offer = tk.Entry(window, width=20, font='12')
-			ent_offer.place(x=400,y=hposOffer)
+			ent_offer.place(x=400,y=hposOffer,h=30)
 			
 		# SEPARATORI
-		hposSep0=maxextrarows*40+525;
+		hposSep0=maxextrarows*30+410;
 		sep0 = ttk.Separator(window, orient='horizontal')
 		#sep0.pack(side="bottom",fill="x", padx=5, pady=85)
 		sep0.place(x=0, y=hposSep0, relwidth=1, height=1)
-		hposSep1=maxextrarows*40+610;
+		hposSep1=maxextrarows*30+450;
 		sep1 = ttk.Separator(window, orient='horizontal')
 		#sep1.pack(side="bottom",fill="x", padx=5, pady=0)
 		sep1.place(x=0, y=hposSep1, relwidth=1, height=1)
@@ -201,25 +201,25 @@ def drwFrame():
 		args = riga.split(",")
 		exec("abutv.append(tk.Button(master=window, bg='black', fg='white', font='12',text=args[0], command=lambda: playaudio(\""+relpath+"/sound/"+args[1]+"\")))")
 		
-		abutv[abutn].place(x=700,y=100+abutn*40)
+		abutv[abutn].place(x=700,y=100+abutn*30,h=30)
 		abutn+=1
 	
 	# CONTRADA FORTUNATA
-	hposContrada=maxextrarows*40+630;
+	hposContrada=maxextrarows*30+460;
 	if(jdata[7]):
 		butt_contrada = tk.Button(master=window, bg='#CF5F00', fg='white', font='12',text="AZZERA (MOD. PACCHI)", command=lambda: azzera())
-		butt_contrada.place(x=100,y=hposContrada)
+		butt_contrada.place(x=100,y=hposContrada,h=30)
 		if(jdata[8]):
 			butt_contrada2 = tk.Button(master=window, bg='black', fg='white', font='12',text="SPLASH OFF REGIONE", command=lambda: splashOFF())
-			butt_contrada2.place(x=400,y=hposContrada)
+			butt_contrada2.place(x=400,y=hposContrada,h=30)
 		else:
 			butt_contrada2 = tk.Button(master=window, bg='black', fg='white', font='12',text="SPLASH ON REGIONE", command=lambda: splashON())
-			butt_contrada2.place(x=400,y=hposContrada)
+			butt_contrada2.place(x=400,y=hposContrada,h=30)
 	else:
 		butt_contrada = tk.Button(master=window, bg='#CF5F00', fg='white', font='12',text="AZZERA", command=lambda: azzera())
-		butt_contrada.place(x=100,y=hposContrada)
+		butt_contrada.place(x=100,y=hposContrada,h=30)
 		butt_contrada2 = tk.Button(master=window, bg='black', fg='white', font='12',text="CONTRADA FORTUNATA", command=lambda: modereg())
-		butt_contrada2.place(x=400,y=hposContrada)
+		butt_contrada2.place(x=400,y=hposContrada,h=30)
 		
 	# EXIT: partita finita (DISABLED)
 	#if(totpacchi<2):
@@ -239,7 +239,7 @@ jinitdata = json.loads(jinitrqst.text)
 global maxextrarows
 maxextrarows = max(jinitdata[10],jinitdata[11])-10
 global hparam
-hparam=str(700+40*maxextrarows)
+hparam=str(500+30*maxextrarows)
 windowParent = tk.Tk()
 windowParent.call('wm', 'attributes', '.', '-topmost', '1')
 windowParent.title("Affari Miei MGR")
